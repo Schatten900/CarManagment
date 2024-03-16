@@ -83,6 +83,7 @@
       <AdditionalDependencies />
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -120,16 +121,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Login1.cpp" />
+    <ClCompile Include="ProfileForm.cpp" />
+    <ClCompile Include="PurchaseForm.cpp" />
+    <ClCompile Include="Register.cpp" />
+    <ClCompile Include="RegisterCarForm.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="UserLogin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DashBoard.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Login1.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ProfileForm.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PurchaseForm.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="Register.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="RegisterCarForm.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserLogin.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DashBoard.resx">
       <DependentUpon>DashBoard.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login1.resx">
+      <DependentUpon>Login1.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfileForm.resx">
+      <DependentUpon>ProfileForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PurchaseForm.resx">
+      <DependentUpon>PurchaseForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Register.resx">
+      <DependentUpon>Register.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegisterCarForm.resx">
+      <DependentUpon>RegisterCarForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserLogin.resx">
+      <DependentUpon>UserLogin.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

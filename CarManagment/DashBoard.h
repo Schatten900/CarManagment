@@ -1,4 +1,12 @@
 #pragma once
+//UserControls:
+#include "UserLogin.h"
+#include "ProfileForm.h"
+#include "RegisterCarForm.h"
+#include "PurchaseForm.h"
+
+//Class of User and Car
+#include "User.h"
 
 namespace CarManagment {
 
@@ -15,7 +23,7 @@ namespace CarManagment {
 	public ref class DashBoard : public System::Windows::Forms::Form
 	{
 	public:
-		DashBoard(void)
+		DashBoard(User^ user)
 		{
 			InitializeComponent();
 			//
@@ -42,13 +50,14 @@ namespace CarManagment {
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Button^ ProfileButtom;
 
-	private: System::Windows::Forms::Panel^ PerfilButtom;
-	private: System::Windows::Forms::Panel^ panel3;
-	private: System::Windows::Forms::Button^ button1;
+
+
+	private: System::Windows::Forms::Button^ LobbyButtom;
+
 	private: System::Windows::Forms::Button^ meuButtom;
 
 
-	private: System::Windows::Forms::Panel^ panel5;
+
 	private: System::Windows::Forms::Button^ ExitButtom;
 	private: System::Windows::Forms::Panel^ menuBar;
 
@@ -62,6 +71,12 @@ namespace CarManagment {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Timer^ MenuTransition;
 	private: System::Windows::Forms::Timer^ SidebarTransition;
+	private: System::Windows::Forms::Panel^ panel3;
+	private: System::Windows::Forms::Button^ lobButtom;
+	private: System::Windows::Forms::Panel^ PerfilButtom;
+	private: System::Windows::Forms::UserControl^ currentControl = nullptr;
+
+
 	private: System::ComponentModel::IContainer^ components;
 	protected:
 
@@ -81,6 +96,7 @@ namespace CarManagment {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(DashBoard::typeid));
 			this->Sidebar = (gcnew System::Windows::Forms::Panel());
+			this->ExitButtom = (gcnew System::Windows::Forms::Button());
 			this->menuBar = (gcnew System::Windows::Forms::Panel());
 			this->RegisterButtom = (gcnew System::Windows::Forms::Button());
 			this->ActionsButtom = (gcnew System::Windows::Forms::Button());
@@ -88,9 +104,8 @@ namespace CarManagment {
 			this->PerfilButtom = (gcnew System::Windows::Forms::Panel());
 			this->ProfileButtom = (gcnew System::Windows::Forms::Button());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->panel5 = (gcnew System::Windows::Forms::Panel());
-			this->ExitButtom = (gcnew System::Windows::Forms::Button());
+			this->lobButtom = (gcnew System::Windows::Forms::Button());
+			this->LobbyButtom = (gcnew System::Windows::Forms::Button());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->meuButtom = (gcnew System::Windows::Forms::Button());
@@ -100,21 +115,36 @@ namespace CarManagment {
 			this->menuBar->SuspendLayout();
 			this->PerfilButtom->SuspendLayout();
 			this->panel3->SuspendLayout();
-			this->panel5->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// Sidebar
 			// 
 			this->Sidebar->BackColor = System::Drawing::Color::White;
+			this->Sidebar->Controls->Add(this->ExitButtom);
 			this->Sidebar->Controls->Add(this->menuBar);
 			this->Sidebar->Controls->Add(this->PerfilButtom);
 			this->Sidebar->Controls->Add(this->panel3);
-			this->Sidebar->Controls->Add(this->panel5);
 			this->Sidebar->Location = System::Drawing::Point(1, 44);
 			this->Sidebar->Name = L"Sidebar";
-			this->Sidebar->Size = System::Drawing::Size(42, 395);
+			this->Sidebar->Size = System::Drawing::Size(170, 395);
 			this->Sidebar->TabIndex = 0;
+			// 
+			// ExitButtom
+			// 
+			this->ExitButtom->BackColor = System::Drawing::Color::White;
+			this->ExitButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->ExitButtom->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->ExitButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->ExitButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ExitButtom.Image")));
+			this->ExitButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->ExitButtom->Location = System::Drawing::Point(0, 327);
+			this->ExitButtom->Name = L"ExitButtom";
+			this->ExitButtom->Size = System::Drawing::Size(165, 45);
+			this->ExitButtom->TabIndex = 2;
+			this->ExitButtom->Text = L"Exit";
+			this->ExitButtom->UseVisualStyleBackColor = false;
+			this->ExitButtom->Click += gcnew System::EventHandler(this, &DashBoard::ExitButtom_Click);
 			// 
 			// menuBar
 			// 
@@ -125,14 +155,14 @@ namespace CarManagment {
 			this->menuBar->Location = System::Drawing::Point(0, 147);
 			this->menuBar->Margin = System::Windows::Forms::Padding(0);
 			this->menuBar->Name = L"menuBar";
-			this->menuBar->Size = System::Drawing::Size(165, 49);
+			this->menuBar->Size = System::Drawing::Size(165, 165);
 			this->menuBar->TabIndex = 4;
-			this->menuBar->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &DashBoard::panel4_Paint);
 			// 
 			// RegisterButtom
 			// 
 			this->RegisterButtom->BackColor = System::Drawing::Color::White;
 			this->RegisterButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->RegisterButtom->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->RegisterButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->RegisterButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"RegisterButtom.Image")));
 			this->RegisterButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -142,11 +172,13 @@ namespace CarManagment {
 			this->RegisterButtom->TabIndex = 5;
 			this->RegisterButtom->Text = L"Register";
 			this->RegisterButtom->UseVisualStyleBackColor = false;
+			this->RegisterButtom->Click += gcnew System::EventHandler(this, &DashBoard::RegisterButtom_Click);
 			// 
 			// ActionsButtom
 			// 
 			this->ActionsButtom->BackColor = System::Drawing::Color::White;
 			this->ActionsButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->ActionsButtom->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->ActionsButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->ActionsButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ActionsButtom.Image")));
 			this->ActionsButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -156,12 +188,13 @@ namespace CarManagment {
 			this->ActionsButtom->TabIndex = 3;
 			this->ActionsButtom->Text = L"Actions";
 			this->ActionsButtom->UseVisualStyleBackColor = false;
-			this->ActionsButtom->Click += gcnew System::EventHandler(this, &DashBoard::button3_Click);
+			this->ActionsButtom->Click += gcnew System::EventHandler(this, &DashBoard::ActionsButtom_Click);
 			// 
 			// PurchaseButtom
 			// 
 			this->PurchaseButtom->BackColor = System::Drawing::Color::White;
 			this->PurchaseButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->PurchaseButtom->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->PurchaseButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->PurchaseButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PurchaseButtom.Image")));
 			this->PurchaseButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -171,6 +204,7 @@ namespace CarManagment {
 			this->PurchaseButtom->TabIndex = 4;
 			this->PurchaseButtom->Text = L"Purchase";
 			this->PurchaseButtom->UseVisualStyleBackColor = false;
+			this->PurchaseButtom->Click += gcnew System::EventHandler(this, &DashBoard::PurchaseButtom_Click);
 			// 
 			// PerfilButtom
 			// 
@@ -186,6 +220,7 @@ namespace CarManagment {
 			// 
 			this->ProfileButtom->BackColor = System::Drawing::Color::White;
 			this->ProfileButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->ProfileButtom->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->ProfileButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->ProfileButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ProfileButtom.Image")));
 			this->ProfileButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -195,59 +230,38 @@ namespace CarManagment {
 			this->ProfileButtom->TabIndex = 2;
 			this->ProfileButtom->Text = L"Profile";
 			this->ProfileButtom->UseVisualStyleBackColor = false;
+			this->ProfileButtom->Click += gcnew System::EventHandler(this, &DashBoard::ProfileButtom_Click);
 			// 
 			// panel3
 			// 
-			this->panel3->BackColor = System::Drawing::Color::White;
-			this->panel3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->panel3->Controls->Add(this->button1);
-			this->panel3->Location = System::Drawing::Point(0, 16);
-			this->panel3->Margin = System::Windows::Forms::Padding(0);
+			this->panel3->Controls->Add(this->lobButtom);
+			this->panel3->Location = System::Drawing::Point(0, 0);
 			this->panel3->Name = L"panel3";
-			this->panel3->Size = System::Drawing::Size(165, 52);
-			this->panel3->TabIndex = 4;
+			this->panel3->Size = System::Drawing::Size(200, 100);
+			this->panel3->TabIndex = 5;
 			// 
-			// button1
+			// lobButtom
 			// 
-			this->button1->AutoSize = true;
-			this->button1->BackColor = System::Drawing::Color::White;
-			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->button1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.Image")));
-			this->button1->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->button1->Location = System::Drawing::Point(0, 0);
-			this->button1->Margin = System::Windows::Forms::Padding(0);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(164, 52);
-			this->button1->TabIndex = 2;
-			this->button1->Text = L"Lobby";
-			this->button1->UseVisualStyleBackColor = false;
-			this->button1->Click += gcnew System::EventHandler(this, &DashBoard::button1_Click);
+			this->lobButtom->BackColor = System::Drawing::Color::White;
+			this->lobButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->lobButtom->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->lobButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->lobButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"lobButtom.Image")));
+			this->lobButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lobButtom->Location = System::Drawing::Point(0, 23);
+			this->lobButtom->Name = L"lobButtom";
+			this->lobButtom->Size = System::Drawing::Size(165, 52);
+			this->lobButtom->TabIndex = 3;
+			this->lobButtom->Text = L"Lobby";
+			this->lobButtom->UseVisualStyleBackColor = false;
+			this->lobButtom->Click += gcnew System::EventHandler(this, &DashBoard::lobButtom_Click);
 			// 
-			// panel5
+			// LobbyButtom
 			// 
-			this->panel5->BackColor = System::Drawing::Color::White;
-			this->panel5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->panel5->Controls->Add(this->ExitButtom);
-			this->panel5->Location = System::Drawing::Point(0, 349);
-			this->panel5->Name = L"panel5";
-			this->panel5->Size = System::Drawing::Size(165, 52);
-			this->panel5->TabIndex = 4;
-			// 
-			// ExitButtom
-			// 
-			this->ExitButtom->BackColor = System::Drawing::Color::White;
-			this->ExitButtom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->ExitButtom->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->ExitButtom->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ExitButtom.Image")));
-			this->ExitButtom->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->ExitButtom->Location = System::Drawing::Point(0, 3);
-			this->ExitButtom->Name = L"ExitButtom";
-			this->ExitButtom->Size = System::Drawing::Size(165, 49);
-			this->ExitButtom->TabIndex = 2;
-			this->ExitButtom->Text = L"Exit";
-			this->ExitButtom->UseVisualStyleBackColor = false;
-			this->ExitButtom->Click += gcnew System::EventHandler(this, &DashBoard::ExitButtom_Click);
+			this->LobbyButtom->Location = System::Drawing::Point(0, 0);
+			this->LobbyButtom->Name = L"LobbyButtom";
+			this->LobbyButtom->Size = System::Drawing::Size(75, 23);
+			this->LobbyButtom->TabIndex = 0;
 			// 
 			// panel2
 			// 
@@ -264,11 +278,12 @@ namespace CarManagment {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Oswald", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(315, 5);
+			this->label1->Location = System::Drawing::Point(326, 5);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(168, 36);
 			this->label1->TabIndex = 5;
 			this->label1->Text = L"concessionaire";
+			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// meuButtom
 			// 
@@ -300,7 +315,7 @@ namespace CarManagment {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(224)), static_cast<System::Int32>(static_cast<System::Byte>(224)),
 				static_cast<System::Int32>(static_cast<System::Byte>(224)));
-			this->ClientSize = System::Drawing::Size(876, 437);
+			this->ClientSize = System::Drawing::Size(874, 437);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->Sidebar);
 			this->Name = L"DashBoard";
@@ -311,21 +326,26 @@ namespace CarManagment {
 			this->menuBar->ResumeLayout(false);
 			this->PerfilButtom->ResumeLayout(false);
 			this->panel3->ResumeLayout(false);
-			this->panel3->PerformLayout();
-			this->panel5->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-private: System::Void panel4_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) 
-{
 
-}
-private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) 
+private: System::Void addUserControl(System::Windows::Forms::UserControl^ control)
+	{
+		if (currentControl)
+		{
+			this->Controls->Remove(currentControl);
+		}
+		currentControl = control;
+		control->Location = System::Drawing::Point(175, 43);
+		this->Controls->Add(control);
+	}
+
+
+private: System::Void ActionsButtom_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	MenuTransition->Start();
 }
@@ -374,13 +394,46 @@ private: System::Void SidebarTransition_Tick(System::Object^ sender, System::Eve
 		}
 	}
 }
+
 private: System::Void ExitButtom_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	this->Close();
 }
+
 private: System::Void meuButtom_Click(System::Object^ sender, System::EventArgs^ e) 
 {
 	SidebarTransition->Start();
+}
+
+private: System::Void RegisterButtom_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+
+	RegisterCarForm^ registerform = gcnew RegisterCarForm();
+	addUserControl(registerform);
+
+}
+
+private: System::Void ProfileButtom_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+
+	ProfileForm^ profileform = gcnew ProfileForm();
+	addUserControl(profileform);
+
+}
+
+private: System::Void lobButtom_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+
+	UserLogin^ lobbyform = gcnew UserLogin();
+	addUserControl(lobbyform);
+
+}
+private: System::Void PurchaseButtom_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+
+	PurchaseForm^ purchaseform = gcnew PurchaseForm();
+	addUserControl(purchaseform);
+
 }
 };
 }

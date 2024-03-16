@@ -10,10 +10,9 @@ void main(array<String^>^ args)
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-
 	User^ user = nullptr;
 
-	while(true)
+	while (true)
 	{
 		CarManagment::Login loginForm;
 		loginForm.ShowDialog();
@@ -28,11 +27,11 @@ void main(array<String^>^ args)
 			//check if RegisterForm swap with LoginForm
 			if (registerForm.SwitchToLogin)
 			{
-				
+
 				continue;
 			}
 			else
-			{	
+			{
 				user = registerForm.user;
 				break;
 			}
